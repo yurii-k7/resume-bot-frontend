@@ -7,20 +7,44 @@ function App() {
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Hello! How can I help you today?" },
   ]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSend = (text) => {
+  const handleSend = async (text) => {
     setMessages((msgs) => [
       ...msgs,
       { sender: "user", text },
-      { sender: "bot", text: `You said: "${text}"` }, // Simple echo bot
     ]);
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:8081/question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question: text }),
+      });
+      const data = await response.json();
+      setMessages((msgs) => [
+        ...msgs,
+        { sender: "bot", text: data.answer || "Sorry, no answer received." },
+      ]);
+    } catch (error) {
+      setMessages((msgs) => [
+        ...msgs,
+        { sender: "bot", text: "Error: Could not get response from server." },
+      ]);
+      console.log("Error fetching response:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="chat-container">
       <h2>ChatBot for Yurii's resume</h2>
       <MessageList messages={messages} />
-      <MessageInput onSend={handleSend} />
+      <MessageInput onSend={handleSend} disabled={loading} />
+      {loading && <div className="loading">Bot is typing...</div>}
     </div>
   );
 }
