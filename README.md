@@ -11,6 +11,24 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-# Startup
-  npm install
-  npm run dev
+# Start in local dev mode with iteractive updates
+```
+npm install
+npm run dev
+```
+
+# Start with docker
+```
+docker build -t resume-bot-frontend .
+docker run -p 8080:80 resume-bot-frontend
+```
+
+# Install docker compose
+```
+sudo apt install docker-compose-plugin
+```
+
+# Start with docker compose
+```
+docker compose up
+```
