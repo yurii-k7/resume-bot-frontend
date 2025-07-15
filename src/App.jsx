@@ -5,7 +5,7 @@ import "./styles/App.css";
 
 function App() {
   const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hello! How can I help you today?" },
+    { sender: "bot", text: "Hello! I’m a bot here to help you get to know Yurii better. Feel free to ask me any questions about Yurii, and I’ll do my best to answer them." },
   ]);
   const [loading, setLoading] = useState(false);
 
