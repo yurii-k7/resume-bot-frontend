@@ -29,6 +29,8 @@ jobs:
         chmod +x scripts/deploy.sh
     
     - name: Build
+      env:
+        VITE_API_URL: ${{ vars.VITE_API_URL }}
       run: ./scripts/build.sh
     
     - name: Configure AWS credentials
